@@ -1,3 +1,9 @@
+//break the linked list from the middle and reverse the next half 
+//and check the reversed middle linked list with the next first half
+
+//this is an important apprach 
+//always use a stack when anything like reversal or plaindrome comes in the question
+
 
 #include <iostream>
 #include <vector>
