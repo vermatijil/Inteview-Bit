@@ -1,0 +1,31 @@
+//check if the two nodes are cousins or not
+
+bool isCousins(TreeNode* root, int x, int y)
+    {
+        if(root==NULL) return false;
+        queue<TreeNode*>pendingNodes;
+        map<int,int>mp;
+        pendingNodes.push(root);
+        while(pendingNodes.size()!=0)
+        {
+            int size=pendingNodes.size();
+            for(int i=0;i<size;i++)
+            {
+                TreeNode*front=pendingNodes.front();
+                pendingNodes.pop();
+                if(front->left!=NULL)
+                {
+                    mp[front->left->val]=front->val;
+                    pendingNodes.push(front->left);
+                }
+                if(front->right!=NULL)
+                {
+                    mp[front->right->val]=front->val;
+                    pendingNodes.push(front->right);
+                }
+            }
+            if(mp.find(x)!=mp.end() and mp.find(y)!=mp.end() and mp[x]!=mp[y]) return true;
+            mp.clear();
+        }
+        return false;
+    }
