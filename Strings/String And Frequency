@@ -1,3 +1,5 @@
+//never use any find of append or push back function while manipulating the string always use the +=operator to avoid the failure of the large test cases
+
 string Solution::solve(string A)
 {
     map<char,int>mp;
