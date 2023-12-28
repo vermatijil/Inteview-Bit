@@ -1,0 +1,52 @@
+
+void helper(TreeNode *root, int B, vector<int> path, vector<vector<int>> &ans) {
+
+    if(!root) return;
+
+    
+
+    if(!root->left && !root->right) {
+
+        if(B - root->val == 0) {
+
+            path.push_back(root->val);// adding leafnode to our path
+
+            ans.push_back(path); // Last Variation adding path to ans
+            return;
+
+        } else {
+
+            return;
+
+        }
+
+    }
+
+    
+
+    path.push_back(root->val);// adding node to path
+
+    
+
+    helper(root->left, B - root->val, path, ans);
+
+    helper(root->right, B - root->val, path, ans);
+
+
+    
+
+
+} 
+
+
+vector<vector<int> > Solution::pathSum(TreeNode* A, int B) {
+
+    vector<vector<int>> ans; // variation 1 for stroing path
+
+    vector<int> path;// Variation 2 for indiviual path
+
+    helper(A, B, path, ans);
+
+    return ans;
+
+}
