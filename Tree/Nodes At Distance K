@@ -1,0 +1,42 @@
+vector<int> Solution::distanceK(TreeNode* root, int target, int dis){
+    if(!root) return {};
+    map<TreeNode*,TreeNode*> m;
+    TreeNode *papa;
+    queue<TreeNode*> q;
+    q.push(root);
+    while(!q.empty())
+    {
+        TreeNode *p=q.front();
+        q.pop();
+        if(p->val==target) papa=p;
+        if(p->left!=NULL)
+        {
+            m[p->left]=p;
+            q.push(p->left);
+        }
+        if(p->right!=NULL)
+        {
+            m[p->right]=p;
+            q.push(p->right);
+        }
+    }
+   // cout<<papa->val<<endl;
+    queue<pair< TreeNode *,int>> q1;
+    q1.push({papa,0});
+    map<TreeNode *,int> mp;
+    vector<int> v;
+    //cout<<m[papa]->val<<" ";
+    //cout<<mp.count(root)<<" ";
+    while(!q1.empty())
+    {
+        pair<TreeNode *,int> p=q1.front();
+        q1.pop();
+        mp[p.first]++;
+        if(p.second==dis) v.push_back(p.first->val);
+        // cout<<p.first->val<<" ";
+         if(m.count(p.first) && mp.count(m[p.first])==0) q1.push({m[p.first],p.second+1});
+         if(p.first->left!=NULL && mp.count(p.first->left)==0 ) q1.push({p.first->left,p.second+1});
+         if( p.first->right!=NULL && mp.count(p.first->right)==0 ) q1.push({p.first->right,p.second+1});
+    }
+    return v;
+}
