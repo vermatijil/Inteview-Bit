@@ -1,0 +1,84 @@
+
+bool checkalpha(char a)
+
+{
+
+    if(a>='a'&&a<='z' || a>='0'&& a<='9')
+
+    {
+
+        return 1;
+
+    }
+
+    return 0;
+
+}
+
+
+
+int Solution::isPalindrome(string A) {
+
+   
+
+    transform(A.begin(),A.end(),A.begin(),::tolower);
+
+    int i=0;
+
+    int j=A.size()-1;
+
+    while(i<=j)
+
+    {
+
+        if(A[i]==A[j])
+
+        {
+
+            i++;
+
+            j--;
+
+        }
+
+        else if(A[i]!=A[j] && !checkalpha(A[i]))
+
+        {
+
+            i++;
+
+        }
+
+        else if(A[i]!=A[j] && !checkalpha(A[j]))
+
+        {
+
+            j--;
+
+        }
+
+       else if(A[i]!=A[j] && !checkalpha(A[i]) && !checkalpha(A[j]))
+
+        {
+
+            i++;
+
+            j--;
+
+        }
+
+        else if(A[i]!=A[j] && checkalpha(A[i]) && checkalpha(A[j]))
+
+        {
+
+            return 0;
+
+        }
+
+    }
+
+    return 1;
+
+    
+
+}
