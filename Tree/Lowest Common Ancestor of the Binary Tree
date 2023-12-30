@@ -1,0 +1,84 @@
+ TreeNode*Solve(TreeNode*root,TreeNode*p,TreeNode*q)
+    {
+        if(root==NULL||root==p||root==q) return root;
+        TreeNode*left=Solve(root->left,p,q);
+        TreeNode*right=Solve(root->right,p,q);
+        if(left==NULL) return right;
+        else if(right==NULL) return left;
+        else return root;
+    }
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)
+    {
+        if(root==NULL) return NULL;
+        TreeNode*ans=Solve(root,p,q);
+        if(ans!=NULL) return ans;
+        return NULL;
+    }
+
+
+/// THE VARIATION OF THE SAME PROBLEM 
+bool find(TreeNode*A,int B)
+{
+    if(A==NULL)
+    {
+        return false;
+    }
+    if(A->val == B )
+    {
+        return true;
+    }
+    return find(A->left,B) || find(A->right,B);
+}
+
+
+int helper(TreeNode*A,int B,int C)
+{
+
+
+if(A == NULL)
+{
+    return -1;
+}
+if(A->val == B || A->val == C)
+{
+    return A->val;
+}
+int K = helper(A->left,B,C);
+int M = helper(A->right,B,C);
+if(K!=-1 && M!=-1)
+{
+    return A->val;
+}
+else if (K==-1 && M==-1)
+{
+    return -1;
+}
+else if(M==-1)
+{
+    return K;
+}
+else {
+    return M;
+     }
+
+}
+
+
+
+int Solution::lca(TreeNode* A, int B, int C) {
+
+if(A==NULL)
+{
+    return -1;
+}
+if(find(A,B) && find(A,C))
+{
+  return  helper(A,B,C);
+}
+else
+{
+    return -1;
+}
+
+}
