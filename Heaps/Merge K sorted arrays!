@@ -1,0 +1,21 @@
+
+//there is a different appraoch of the same problem please consider that as well before submitting
+
+vector<int> Solution::solve(vector<vector<int>> &ans)
+{
+    priority_queue<int,vector<int>,greater<int>>pendingNodes;
+    for(int i=0;i<ans.size();i++)
+    {
+        for(int j=0;j<ans[i].size();j++)
+        {
+            pendingNodes.push(ans[i][j]);
+        }
+    }
+    vector<int>finalAns;
+    while(pendingNodes.size()!=0)
+    {
+        finalAns.push_back(pendingNodes.top());
+        pendingNodes.pop();
+    }
+    return finalAns;
+}
