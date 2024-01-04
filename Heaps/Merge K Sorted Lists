@@ -1,0 +1,23 @@
+ListNode* Solution::mergeKLists(vector<ListNode*> &ans)
+{
+     priority_queue<int, vector<int>, greater<int>> pendingNodes;
+        for (int i = 0; i < ans.size(); i++)
+        {
+            ListNode*temp=ans[i];
+            while(temp!=NULL)
+            {
+                pendingNodes.push(temp->val);
+                temp=temp->next;
+            }
+        }
+        ListNode *dummy = new ListNode(-1);
+        ListNode *temp = dummy;
+        while (pendingNodes.size() != 0)
+        {
+            ListNode *newNode = new ListNode(pendingNodes.top());
+            pendingNodes.pop();
+            temp->next = newNode;
+            temp = newNode;
+        }
+        return dummy->next;
+}
