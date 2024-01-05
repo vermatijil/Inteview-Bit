@@ -1,0 +1,35 @@
+For Given Number A, find if it's a COLORFUL number or not.
+
+COLORFUL number:
+A number can be broken into different contiguous sub-subsequence parts. 
+Suppose, a number 3245 can be broken into parts like 3 2 4 5 32 24 45 324 245. 
+And this number is a COLORFUL number, since product of every digit of a contiguous subsequence is different
+Return 1 if A is a COLORFUL number, else return 0
+
+
+A = 23
+2 3 23
+2 -> 2
+3 -> 3
+23 -> 6
+this number is a COLORFUL number since the product of every digit of a sub-sequence is different.
+
+
+//this is an important apprach in the main function please consider and try to implement in other questions as well
+
+int Solution::colorful(int n)
+{
+    string s=to_string(n);
+    set<int>st;
+    for(int i=0;i<s.size();i++)
+    {
+        int val=1;
+        for(int j=i;j<s.size();j++)
+        {
+            val=val*(s[j]-'0');
+            if(st.count(val)) return 0;
+            st.insert(val);
+        }
+    }
+    return 1;
+}
