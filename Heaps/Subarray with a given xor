@@ -1,0 +1,15 @@
+int Solution::solve(vector<int> &ans, int k)
+{
+    int count=0;
+    int xr=0;
+    map<int,int>mpp;
+    mpp[xr]++;
+    for(int i=0;i<ans.size();i++)
+    {
+        xr=xr^ans[i];
+        int x=xr^k;
+        count=count+mpp[x];
+        mpp[xr]++;
+    }
+    return count;
+}
