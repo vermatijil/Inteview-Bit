@@ -1,0 +1,16 @@
+vector<vector<int> > Solution::anagrams(const vector<string> &ans)
+{
+    map<string,vector<int>>mp;
+    vector<vector<int>>finalAns;
+    for(int i=0;i<ans.size();i++)
+    {
+        string st=ans[i];
+        sort(st.begin(),st.end());
+        mp[st].push_back(i+1);
+    }
+    for(auto i:mp)
+    {
+        finalAns.push_back(i.second);
+    }
+    return finalAns;
+}
