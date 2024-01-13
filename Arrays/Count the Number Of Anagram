@@ -1,0 +1,76 @@
+                                            //this is the quetion
+                                                  Input:
+                                                  txt = forxxorfxdofr
+                                                  pat = for
+                                                  Output: 3
+                                                  Explanation: for, orf and ofr appears
+                                                  in the txt, hence answer is 3.
+
+int search(string pat, string txt)
+	{
+	    map<char,int>mppat;
+	    map<char,int>mptxt;
+	    for(auto e:pat) mppat[e]++;
+	    int n=txt.size();
+	    int i=0;
+	    int j=0;
+	    int ans=0;
+	    int k=pat.size();
+	    while(j<n)
+	    {
+	        mptxt[txt[j]]++;
+	        if(j-i+1==k)
+	        {
+	            if(mptxt==mppat) ans++;
+	            mptxt[txt[i]]--;
+	            if(mptxt[txt[i]]==0) mptxt.erase(txt[i]);
+	            i++;
+	        }
+	        j++;
+	    }
+	   return ans;
+	}
+
+
+
+  //same approach in the different manner  using the character vectors important approach consider both of them
+
+
+int search(string pat, string txt) {
+    // code here
+    int n=txt.length();
+    int k=pat.length();
+    int result=0;
+    
+    vector<int>hashpat(26,0);
+    
+    for(int i=0;i<k;i++){
+        hashpat[pat[i]-'a']++;
+    }
+    
+    
+    vector<int>hashtxt(26,0);
+    
+    int i=0,j=0;
+    
+    while(j<n){
+        hashtxt[txt[j]-'a']++;
+        
+        if(j-i+1==k){
+            
+            if(hashtxt==hashpat){
+                result++;
+            }
+            
+            hashtxt[txt[i]-'a']--;
+            i++;
+            
+        }
+        
+        j++;
+        
+    }
+    
+    return result;
+}
+
