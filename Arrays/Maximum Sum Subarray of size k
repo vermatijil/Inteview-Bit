@@ -1,0 +1,54 @@
+//maximum Subarray Sum
+    long maximumSumSubarray(int k, vector<int> &ans , int N)
+    {
+        int i = 0;
+        int j = 0;
+        int sum = 0;
+        int maxi = INT_MIN;
+        while (j < N)
+        {
+            sum = sum + ans[j];
+            if (j - i + 1 < k)
+            {
+                j++;
+            }
+            else if ((j - i + 1) == k)
+            {
+                maxi = max(maxi, sum);
+                sum = sum - ans[i];
+                i++;
+                j++;
+            }
+        }
+        return maxi;
+    }
+
+  //this is another approach my appraoch of solving the question of the sliding window
+    long maximumSumSubarray(int k, vector<int> &ans , int N)
+    {
+        int n = ans.size();
+        long long maxi = INT_MIN;
+        int end = k - 1;
+        int start = 0;
+        long long sum = 0;
+        for (int i = 0; i <= n - k; i++)
+        {
+            start = i;
+            if (i != 0)
+            {
+                sum = sum - ans[i - 1];
+                sum = sum + ans[end + 1];
+                end = end + 1;
+            }
+            else
+            {
+                while (start <= end)
+                {
+                    sum = sum + ans[start];
+                    start++;
+                }
+            }
+            maxi = max(sum, maxi);
+        }
+        return maxi;
+    }
