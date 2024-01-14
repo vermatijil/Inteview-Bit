@@ -1,0 +1,67 @@
+#include <bits/stdc++.h> 
+
+
+//Always in the question which are related to knapsack we just have to follow one approach either picking up the element or not picking up the element
+//this is same for all the probelems which involvs any choice and asked for some optimal solution like maximise minimise and other problems 
+//all the question will bw just the variation of the given proble
+
+
+//this is the memoization apprach 
+
+int helper(vector<int> weight, vector<int> value, int n, int maxWeight,vector<vector<int>>&dp) 
+{
+	if(n==0 || maxWeight==0) return 0;
+
+	if(dp[n][maxWeight]!=-1) return dp[n][maxWeight];
+	//not take condition
+	int not_take=helper(weight,value,n-1,maxWeight,dp);
+	//take condition
+	int take=0;
+	if(weight[n-1]<=maxWeight)
+	{
+		take=helper(weight,value,n-1,maxWeight-weight[n-1],dp)+value[n-1];
+	}
+	dp[n][maxWeight]=max(not_take,take);
+}
+
+
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	vector<vector<int>>dp(n+1,vector<int>(maxWeight+1,-1));
+	return helper(weight,value,n,maxWeight,dp);
+}
+
+
+//this is the dynamic programming apprach using the tabulation method
+//this is the tabulation method and this is very important 
+
+int knapSack(int capacity, int wt[], int val[], int n) 
+    {
+        vector <vector<int>>dp(n,vector<int>(capacity+1,0));
+        for(int i=0 ; i<=capacity ; i++)
+        {
+            if(wt[0]<=i)
+            {
+                dp[0][i]=val[0];
+            }
+        }
+        
+        
+        for(int i=1 ; i<n ; i++)
+        {
+            for(int j=0 ; j<=capacity ; j++)
+            {
+                int include =0 ;
+                if(wt[i]<=j)
+                {
+                    include = val[i] + dp[i-1][j-wt[i]];
+                }
+                int exclude = dp[i-1][j];
+                
+                dp[i][j]=max(include,exclude);
+            }
+        }
+        
+        return dp[n-1][capacity];
+
+    }
