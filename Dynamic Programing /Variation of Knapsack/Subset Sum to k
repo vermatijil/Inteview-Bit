@@ -1,0 +1,49 @@
+#include <bits/stdc++.h> 
+
+//this is the memoization solution of the problem
+
+bool helper(int n, int sum, vector<int> &ans,vector<vector<int>>&dp)
+{
+    //this is the terminating condition
+    if(sum==0) return true;
+    if(n==0) return (ans[n]==sum);
+
+    if(dp[n][sum]!=-1) return dp[n][sum];
+
+    //this is the not pick condition
+    bool ans1=helper(n-1,sum,ans,dp);
+    //this is the pick up condition
+    bool ans2=false;
+    if(ans[n]<=sum) ans2=helper(n-1,sum-ans[n],ans,dp);
+    dp[n][sum]=ans1 or ans2;
+    return dp[n][sum];
+}
+
+bool subsetSumToK(int n, int sum, vector<int> &ans)
+{
+    vector<vector<int>>dp(n+1,vector<int>(sum+1,-1));
+    return helper(n,sum,ans,dp);
+}
+
+
+//this is the dynamic programming solution of the problem
+
+
+bool subsetSumToK(int n, int sum, vector<int> &ans)
+{
+    vector<vector<bool>>dp(n+1,vector<bool>(sum+1,false));
+    for(int i=0;i<n+1;i++) dp[i][0]=true;
+    dp[0][ans[0]]=true;
+    for(int i=1;i<n+1;i++)
+    {
+        for(int j=1;j<=sum;j++)
+        {
+            bool ans1=dp[i-1][j];
+            //this is the pick up condition
+            bool ans2=false;
+            if(ans[i]<=j) ans2=dp[i-1][j-ans[i]];
+            dp[i][j]=ans1 or ans2;
+        }
+    }
+    return dp[n][sum];
+}
