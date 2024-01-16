@@ -1,0 +1,16 @@
+#include <bits/stdc++.h> 
+
+int frogJump(int n, vector<int> &ans)
+{
+    int index=n-1;
+    vector<int>dp(index+1,0);
+    dp[0]=0;
+    for(int i=1;i<=index;i++)
+    {
+        int a=dp[i-1]+abs(ans[i]-ans[i-1]);
+        int b=INT_MAX;
+        if(i>1) b=dp[i-2]+abs(ans[i]-ans[i-2]);
+        dp[i]=min(a,b);
+    }
+    return dp[index];
+}
