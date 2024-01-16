@@ -1,0 +1,36 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+
+int minSubsetSumDifference(vector<int>& ans, int n)
+{
+    int total_sum=0;
+    for(int e:ans) total_sum=total_sum+e;
+    int index=n-1;
+    int sum=0;
+    sum=total_sum;
+    vector<vector<bool>>dp(index+1,vector<bool>(sum+1,0));
+    for(int i=0;i<=n-1;i++) dp[i][0]=true;
+    if(ans[0]<=sum)  dp[0][ans[0]]=true;
+    for(int i=1;i<=n-1;i++)
+    {
+        for(int j=1;j<=sum;j++)
+        {
+            bool not_pick=dp[i-1][j];
+            bool pick=false;
+            if(ans[i]<=j) pick=dp[i-1][j-ans[i]];
+            dp[i][j]=not_pick or pick; 
+        }
+    }
+    int mini=1e9;
+    for(int s1=0;s1<=total_sum/2;s1++)
+    {
+        if(dp[n-1][s1]==true)
+        {
+            mini=min(mini,abs((total_sum-s1)-s1));
+        }
+    }
+    return mini;
+}
