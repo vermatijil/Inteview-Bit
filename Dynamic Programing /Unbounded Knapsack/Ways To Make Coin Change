@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+long helper(int*ans,int index,int val,vector<vector<long>>&dp)
+{
+    if(index==0) return ((val%ans[0])==0);
+    if(dp[index][val]!=-1) return dp[index][val];
+
+    //this is the not pick case of the main function
+    long not_pick=helper(ans,index-1,val,dp);
+
+    //this is the pick up case
+    
+    long pick=0;
+    if(ans[index]<=val) pick=helper(ans,index,val-ans[index],dp);
+    dp[index][val]=pick+not_pick;
+    return dp[index][val];
+}
+
+
+long countWaysToMakeChange(int *ans, int n, int val)
+{
+    vector<vector<long>>dp(n+1,vector<long>(val+1,-1));
+    for(int i=0;i<=val;i++)
+    {
+        dp[0][i]=(i%ans[0]==0);
+    }
+    for(int i=1;i<n+1;i++)
+    {
+        for(int t=0;t<=val;t++)
+        {
+            long not_pick=dp[i-1][t];
+            long pick=0;
+            if(ans[i]<=val) pick=dp[i][t-ans[i]];
+            dp[i][t]=pick+not_pick;
+        }
+    }
+    return dp[n][val];
+}
