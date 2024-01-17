@@ -1,0 +1,109 @@
+Problem statement
+Given an infinite supply of Indian currency i.e. [1, 2, 5, 10, 20, 50, 100, 500, 1000] valued coins and an amount 'N'.
+
+
+
+Find the minimum coins needed to make the sum equal to 'N'. You have to return the list containing the value of coins required in decreasing order.
+
+//important question you can see the variation of the problem on the leetode
+//read the problem statement before submitting the exact solution
+
+For Example
+For Amount = 70, the minimum number of coins required is 2 i.e an Rs. 50 coin and a Rs. 20 coin.
+Note
+It is always possible to find the minimum number of coins for the given amount. So, the answer will always exist.
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1
+13
+Sample Output 1
+10 2 1
+Explanation of Sample Input 1
+The minimum number of coins to change is 3 {1, 2, 10}.
+Sample Input 2
+50
+Sample Output 2
+50
+Constraints
+1 <= 'N' <= 10^5
+
+Time Limit: 1 sec
+
+
+
+
+/*
+    Time Complexity: O(2^N)
+    Space Complexity: O(N)
+
+    where 'N' is the given amount to be changed.
+*/
+
+//this is the recursive apprach in the main function
+
+void find(int i, vector<int> &v, vector<int> &ans, vector<int> &denominations, int n)
+{
+    if (n == 0)
+    {
+        if (v.size() < ans.size() || ans.size() == 0)
+        {
+            // Updating our answer.
+            ans = v;
+        }
+        return;
+    }
+    if (i == -1)
+    {
+        return;
+    }
+    find(i - 1, v, ans, denominations, n);
+    if (n >= denominations[i])
+    {
+        v.push_back(denominations[i]);
+        n -= denominations[i];
+        find(i, v, ans, denominations, n);
+        v.pop_back();
+    }
+}
+
+vector<int> MinimumCoins(int n)
+{
+    // Array to store denominations.
+    vector<int> denominations = {1, 2, 5, 10, 20, 50, 100, 500, 1000};
+    vector<int> ans;
+    vector<int> v;
+
+    // Finding answer.
+    find(denominations.size() - 1, v, ans, denominations, n);
+    return ans;
+}
+
+
+
+//this is the dp appraoch
+
+/*
+    Time Complexity: O(N)
+    Space Complexity: O(1)
+
+    where 'N' is the given amount to be changed.
+*/
+
+vector<int> MinimumCoins(int n)
+{
+    // Array to store denominations.
+    vector<int> denominations = {1, 2, 5, 10, 20, 50, 100, 500, 1000};
+    vector<int> ans;
+    int m = denominations.size();
+
+    // Pick coins in decreasing order of their values.
+    for (int i = m - 1; i >= 0; i--)
+    {
+        while (n >= denominations[i])
+        {
+            n = n - denominations[i];
+            ans.push_back(denominations[i]);
+        }
+    }
+
+    return ans;
+}
