@@ -19,3 +19,35 @@ TreeNode* Solution::flatten(TreeNode* A)
     }
     return(dummy->right);
 }
+
+
+
+TreeNode* getAns(TreeNode* root) {
+        // base case
+        if (root == NULL) {
+            return NULL;
+        }
+
+        TreeNode* lPart = getAns(root->left);
+        TreeNode* rPart = getAns(root->right);
+
+        TreeNode* last = lPart;
+        if (last != NULL) {
+            while (last->right != NULL) {
+                last = last->right;
+            }
+        }
+        if (lPart != NULL) {
+            root->left = NULL;
+            root->right = lPart;
+            last->right = rPart;
+        } else {
+            root->right = rPart;
+        }
+
+        return root;
+    }
+    void flatten(TreeNode* root)
+    {
+        TreeNode* ans = getAns(root);
+    }
