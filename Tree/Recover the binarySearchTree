@@ -1,0 +1,25 @@
+
+
+You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.
+
+
+class Solution {
+public:
+    vector<int>ans;
+    void helper(TreeNode*root)
+    {
+        if(root==NULL) return;
+        helper(root->left);
+        ans.push_back(root->val);
+        helper(root->right);
+    }
+    bool isValidBST(TreeNode* root)
+    {
+        helper(root);
+        for(int i=0;i<ans.size()-1;i++)
+        {
+            if(ans[i]>=ans[i+1]) return false;
+        }
+        return true;
+    }
+};
