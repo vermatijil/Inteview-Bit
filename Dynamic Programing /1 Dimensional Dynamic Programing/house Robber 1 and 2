@@ -1,0 +1,85 @@
+//this is house robber 1
+
+
+
+
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+
+class Solution {
+public:
+
+    int helper(vector<int>&ans,int index,vector<int>&dp)
+    {
+        if(index==0) return ans[index];
+        if(index<0) return 0;
+        if(dp[index]!=-1) return dp[index];
+        int pick=ans[index]+helper(ans,index-2,dp);
+        int not_pick=helper(ans,index-1,dp);
+        return dp[index]= max(pick,not_pick);
+    }
+    int rob(vector<int>& ans)
+    {
+        int n=ans.size();
+        int index=n-1;
+        vector<int>dp(index+1,-1);
+        return helper(ans,index,dp);
+    }
+};
+
+  
+
+
+//this is house robber 2
+
+you are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+
+class Solution {
+private:
+    
+    int solveSO(vector<int> &nums, int n)
+    {
+        int prev2=0;
+        int prev1=nums[0];
+        int curr=0;
+
+        for(int i=1;i<=n;i++)
+        {
+            int include = prev2+ nums[i];
+            int exclude=prev1;
+            curr=max(include, exclude);
+
+            prev2=prev1;
+            prev1=curr;
+        }
+        
+        return prev1;
+    }
+
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 1){
+            return nums[0];
+        }
+        vector<int> first(n),last(n);
+
+        for(int i = 0 ; i < n ; i++){
+            if(i != n-1){
+                first.push_back(nums[i]);
+            }
+
+            if(i != 0){
+                last.push_back(nums[i]);
+            }
+        }
+
+        return max (solveSO(first, first.size()), solveSO(last, last.size())); 
+
+    }
+};
