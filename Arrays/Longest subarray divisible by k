@@ -1,0 +1,35 @@
+Given an array arr containing N integers and a positive integer K, find the length of the longest sub array with sum of the elements divisible by the given value K.
+
+class Solution{
+public:	
+	int longSubarrWthSumDivByK(int ans[], int n, int k)
+	{
+	    int maxi=0;
+	    int sum=0;
+	    map<int,int>mp;
+	    for(int i=0;i<n;i++)
+	    {
+	        sum=sum+ans[i];
+	        int rem=sum%k;
+	        if(rem==0)
+	        {
+	            maxi=i+1;
+	        }
+	        if(rem<0)
+	        {
+	            rem=rem+k;
+	        }
+	        if(mp.find(rem)!=mp.end())
+	        {
+	            maxi=max(maxi,i-mp[rem]);
+	        }
+	        else if(mp.find(rem)==mp.end())
+	        {
+	            mp[rem]=i;
+	        }
+	    }
+	    return maxi;
+	}
+};
+
+
