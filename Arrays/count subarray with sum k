@@ -1,0 +1,22 @@
+  Given an unsorted array of integers, find the number of continuous subarrays having sum exactly equal to a given number k.
+    class Solution{
+    public:
+    //this is the main function i
+    int findSubArraySum(int ans[], int n, int k)
+    {
+        int count=0;
+        int sum;
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+        {
+            sum=sum+ans[i];
+            if(sum==k) count++;
+            if(mp.find(sum-k)!=mp.end())
+            {
+                count=count+mp[sum-k];
+            }
+            mp[sum]++;
+        }
+        return count;
+    }
+};
