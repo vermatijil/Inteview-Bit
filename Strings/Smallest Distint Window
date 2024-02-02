@@ -1,0 +1,41 @@
+//this is a map and two pointer and sliding window appraoch
+
+
+//very important question
+
+Given a string 's'. The task is to find the smallest window length that contains all the characters of the given string at least one time.
+For eg. A = aabcbcdbca, then the result would be 4 as of the smallest window will be dbca.
+
+
+//very important dry run it again
+
+    int findSubString(string str)
+    {
+        set <char> st; 
+        for (auto i:str) st.insert(i);
+        int size = st.size();
+        int i=0,j=0;
+        int n = str.size();
+        
+        int ans = INT_MAX;
+        unordered_map< char,int> mp;
+        while( j<n )
+        {
+            mp[str[j]]++;
+            if( mp.size() == size)
+            {
+                while( mp.size() == size and i<n) {
+                ans = min ( ans, j-i+1);
+                mp[ str[i] ]--;
+                if( mp[ str[i] ] == 0)
+                {
+                    auto e = mp.find(str[i]);
+                    mp.erase(e);
+                }
+                i++;
+                }
+            }
+            j++;
+        }
+        return ans;
+    }
