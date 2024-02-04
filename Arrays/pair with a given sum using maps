@@ -1,0 +1,15 @@
+
+ //we have to calculate all the pair with sum k in the given array
+ 
+ 
+ int getPairsCount(int ans[], int n, int k)
+    {
+        int count=0;
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+        {
+            if(mp.find(k-ans[i])!=mp.end()) count+=mp[k-ans[i]];
+            mp[ans[i]]++;
+        }
+        return count;
+    }
