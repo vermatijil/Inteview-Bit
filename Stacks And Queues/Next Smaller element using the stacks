@@ -1,0 +1,17 @@
+//dry run this onece for better understanding
+
+
+vector<int> func(vector<int> &ans)
+{
+	stack<int> s;
+	s.push(-1);
+	vector<int> finalAns;
+	for (int i = ans.size() - 1; i >= 0; i--)
+	{
+		while (s.top() >= ans[i])
+			s.pop();
+		finalAns.push_back(s.top());
+		s.push(ans[i]);
+	}
+	return finalAns;
+}
