@@ -1,0 +1,18 @@
+ private:
+    bool helper(Node*root,int min,int max)
+    {
+        if(root==NULL) return true;
+        if(min<root->data and max>root->data)
+        {
+            bool left=helper(root->left,min,root->data);
+            bool right=helper(root->right,root->data,max);
+            return left and right;
+        }
+        else return false;
+    }
+    public:
+    //Function to check whether a Binary Tree is BST or not.
+    bool isBST(Node* root)
+    {
+        return helper(root,INT_MIN,INT_MAX);
+    }
