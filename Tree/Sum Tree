@@ -1,0 +1,41 @@
+//this is a very important approach if we want to check for every node
+//this is the child question for the 
+
+ private:
+    pair<bool,int> helper(Node*root)
+    {
+        if(root==NULL) 
+        {
+            pair<bool,int>p=make_pair(true,0);
+            return p;
+        }
+        if(root->left==NULL and root->right==NULL)
+        {
+            pair<bool,int>p=make_pair(true,root->data);
+            return p;
+        }
+        
+        //calling on the left and the right subtree
+        pair<bool,int>left=helper(root->left);
+        pair<bool,int>right=helper(root->right);
+        
+        bool diff=(root->data==(left.second+right.second));
+        
+        pair<bool,int>a;
+        if(diff and left.first and right.first)
+        {
+            a.first=true;
+            a.second=root->data+left.second+right.second;
+        }
+        else 
+        {
+            a.first=false;
+        }
+        return a;
+    }
+    public:
+    bool isSumTree(Node* root)
+    {
+        pair<bool,int>p=helper(root);
+        return p.first;
+    }
