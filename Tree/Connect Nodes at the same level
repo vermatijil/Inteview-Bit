@@ -1,0 +1,26 @@
+//this is the code to connect them at same level 
+ void connect(Node *root)
+    {
+        if(root==NULL) return;
+        queue<Node*>pendingNodes;
+        pendingNodes.push(root);
+        vector<Node*>finalAns;
+        while(pendingNodes.size()!=0)
+        {
+            int size=pendingNodes.size();
+            for(int i=0;i<size;i++)
+            {
+                Node*front=pendingNodes.front();
+                pendingNodes.pop();
+                finalAns.push_back(front);
+                if(front->left!=NULL) pendingNodes.push(front->left);
+                if(front->right!=NULL) pendingNodes.push(front->right);
+            }
+            finalAns.push_back(NULL);
+            for(int i=0;i<size;i++)
+            {
+                finalAns[i]->nextRight=finalAns[i+1];
+            }
+            finalAns.clear();
+        }
+    }
