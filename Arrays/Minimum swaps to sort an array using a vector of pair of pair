@@ -1,0 +1,44 @@
+//this is a very common appraoch of solving the problems of the minimum swaps to sort an array in increasing and decreasing fashion
+
+
+
+Given an array of n distinct elements. Find the minimum number of swaps required to sort the array in strictly increasing order.
+
+
+
+Input:
+nums = {2, 8, 5, 4}
+Output:
+1
+Explanation:
+swap 8 with 4.
+
+
+Input:
+nums = {10, 19, 6, 3, 5}
+Output:
+2
+Explanation:
+swap 10 with 3 and swap 19 with 5.
+
+
+	int minSwaps(vector<int>&ans)
+	{
+	    vector<pair<int,int>>finalAns;
+	    for(int i=0;i<ans.size();i++) finalAns.push_back({ans[i],i});
+	    sort(finalAns.begin(),finalAns.end());
+	    int count=0;
+	    for(int i=0;i<ans.size();i++)
+	    {
+	        if(finalAns[i].second==i) continue;
+	        else 
+	        {
+	            count++;
+	            swap(finalAns[i],finalAns[finalAns[i].second]);
+	            i--;
+	        }
+	    }
+	    return count;
+	}
+
+
