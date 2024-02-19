@@ -1,0 +1,19 @@
+  private:
+  int helper(Node*root,int&maxi)
+  {
+      if(root==NULL) return 0;
+      int leftSide=helper(root->left,maxi);
+      int rightSide=helper(root->right,maxi);
+      int curr=leftSide+rightSide+root->data;
+      maxi=max(maxi,curr);
+      return curr;
+  }
+  public:
+    // Function to find largest subtree sum.
+    int findLargestSubtreeSum(Node* root)
+    {
+        if(root==NULL) return 0;
+        int maxi=INT_MIN;
+        helper(root,maxi);
+        return maxi;
+    }
