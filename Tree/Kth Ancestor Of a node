@@ -1,0 +1,80 @@
+
+//this is the bfs solution
+int kthAncestor(Node *root, int k, int node)
+{
+    // Code here
+    unordered_map<int,int>mp;
+    queue<Node*>q;
+    q.push(root);
+    mp[root->data]=-1;
+    while(!q.empty())
+    {
+        Node* front=q.front();
+        q.pop();
+        
+        if(front->left)
+        {
+            q.push(front->left);
+            mp[front->left->data]=front->data;
+        }
+        if(front->right)
+        {
+            q.push(front->right);
+            mp[front->right->data]=front->data;
+        }
+    }
+    
+    while(k--)
+    {
+        if(node==root->data && k>=1)
+        return -1;
+        node=mp[node];
+    }
+    return node;
+}
+
+
+
+
+
+
+//this is using pure dfs
+time complexity o(n)
+space complexity o(1)
+
+.................................................not understod............................................................
+//can be solved by binary lifting as well
+
+
+
+//this is using stack 
+time complexity is o(N);
+space complixity is 0(N);
+bool helper(Node*root,int node,stack<int>&s)
+{
+    if(root==NULL) return false;
+    s.push(root->data);
+    if(root->data==node) return true;
+    
+    bool ans1=helper(root->left,node,s);
+    bool ans2=helper(root->right,node,s);
+    if(ans1 || ans2) return true;
+    s.pop();
+    return false;
+}
+
+int kthAncestor(Node *root, int k, int node)
+{
+    stack<int>s;
+    helper(root,node,s);
+    if(s.size()>k)
+    {
+        while(k!=0)
+        {
+            s.pop();
+            k--;
+        }
+        return s.top();
+    }
+    return -1;
+}
