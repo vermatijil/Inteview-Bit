@@ -8,3 +8,8 @@ queue<int>pendingNodes;
         st.push(pendingNodes.front());
         pendingNodes.pop();
     }
+
+
+//try the question sort the stack and array using recursion 
+
+//and try the same question without using any other data strucur like queue
