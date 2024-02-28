@@ -1,0 +1,17 @@
+Given a positive integer N, count all possible distinct binary strings of length N such that there are no consecutive 1’s. Output your answer modulo 109 + 7.
+
+ll countStrings(int n)
+	{
+	    int mod=1e9+7;
+	    vector<long long>dp(n+1);
+	    dp[0]=0;
+	    dp[1]=2;
+	    dp[2]=3;
+	    for(int i=3;i<n+1;i++)
+	    {
+    	    long long take=dp[i-2]%mod;
+            long long not_take=dp[i-1]%mod;
+            dp[i]=(take+not_take)%mod;
+	    }
+	    return dp[n];
+	}
