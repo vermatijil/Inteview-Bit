@@ -1,0 +1,25 @@
+#include <bits/stdc++.h> 
+string compressTheString(string &s)
+{
+    int i=0;
+    int count=0;
+    string res;
+    while(i<s.size())
+    {
+        res+=s[i];
+        if(s[i]==s[i+1] and i!=s.size())
+        {
+            int j=i;
+            count=0;
+            while(s[i]==s[j] and j<s.size())
+            {
+                j++;
+                count++;
+            }
+            i=j;
+            res+=to_string(count);
+        }
+        else i++;
+    }
+    return res;
+}
