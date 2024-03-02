@@ -1,0 +1,51 @@
+
+class Solution
+{
+    private:
+    int helper(int i,int j,string&s,string&t,vector<vector<int>>&dp)
+    {
+        int mod=1e9+7;
+        if(j<0) return 1;
+        if(i<0) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        if(s[i]==t[j]) dp[i][j]=(helper(i-1,j-1,s,t,dp)%mod+helper(i-1,j,s,t,dp)%mod)%mod;
+        else return  dp[i][j]= helper(i-1,j,s,t,dp)%mod;
+    }
+    public:
+    int subsequenceCount(string s, string t)
+    {
+        int n=s.size();
+        int m=t.size();
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        return helper(n-1,m-1,s,t,dp);
+    }
+};
+
+
+//this si the tabulation method for solving the same problem 
+
+  int subsequenceCount(string s, string t)
+    {
+        int n=s.size();
+        int m=t.size();
+        vector<vector<long long int>>dp(n+1,vector<long long int>(m+1,0));
+        int mod=1e9+7;
+        for(int i=0;i<n+1;i++) dp[i][0]=1;
+        for(int i=1;i<n+1;i++)
+        {   
+            for(int j=1;j<m+1;j++)
+            {
+                if(s[i-1]==t[j-1])
+                {
+                    int a=dp[i-1][j-1]%mod;
+                    int b=dp[i-1][j]%mod;
+                    dp[i][j]=(a+b)%mod;
+                }
+                else 
+                {
+                    dp[i][j]= dp[i-1][j]%mod;
+                }
+            }
+        }
+        return dp[n][m];
+    }
