@@ -1,0 +1,17 @@
+//this is the odd even linked list in the main function
+
+Node* divide(int N, Node *head)
+  {
+        Node*odd=head;
+        Node*even=head->next;
+        Node*even_head=head->next;
+        while(even!=NULL and even->next!=NULL)
+        {
+            odd->next=odd->next->next;
+            even->next=even->next->next;
+            odd=odd->next;
+            even=even->next;
+        }
+        odd->next=even_head;
+        return head;
+    }
