@@ -1,0 +1,24 @@
+The cost of stock on each day is given in an array A[] of size N. Find all the segments of days on which you buy and sell the stock such that the sum of difference between sell and buy prices is maximized. Each segment consists of indexes of two elements, first is index of day on which you buy stock and second is index of day on which you sell stock.
+Note: Since there can be multiple solutions, the driver code will print 1 if your answer is correct, otherwise, it will return 0. In case there's no profit the driver code will print the string "No Profit" for a correct solution.
+
+
+
+
+
+//make a graph of the question then check the solution of the problem it will be helpful
+ vector<vector<int> > stockBuySell(vector<int> A, int n)
+    {
+         int st = 0;
+        vector<vector<int>> ans;
+        for(int i=1;i<n;i++){
+            if(A[i-1]>=A[i]){
+                if(A[st]<A[i-1])
+                    ans.push_back({st,i-1});
+                st = i;
+            }
+        }
+        if(A[st]<A[n-1])
+            ans.push_back({st,n-1});
+            
+        return ans;
+    }
