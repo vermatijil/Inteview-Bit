@@ -1,0 +1,24 @@
+Given a string S of opening and closing brackets '(' and ')' only. The task is to find an equal point. An equal point is an index such that the number of closing brackets on right from that point must be equal to number of opening brackets before that point.
+
+
+//its an important type of the question
+
+class Solution{
+  public:
+    int findIndex(string str)
+    {
+        int count=0;
+        for(int i=0;i<str.size();i++)
+        {
+            if(str[i]==')') count++;
+        }
+        int c=0;
+        for(int i=0;i<str.length();i++)
+        {
+            if(str[i]=='(') c++;
+            else count--;
+            if(count==c) return i+1;
+        }
+        return 0;
+    }
+};
