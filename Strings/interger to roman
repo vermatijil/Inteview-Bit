@@ -1,0 +1,50 @@
+
+//ROMAN TO INTERGER EQUIVALENT CODE  
+
+class Solution{
+  
+  private:
+    pair<int, string> func(int n)
+    {
+        vector<pair<int, string>> ans;
+        ans.push_back({1, "I"});
+        ans.push_back({4, "IV"});
+        ans.push_back({5, "V"});
+        ans.push_back({9, "IX"});
+        ans.push_back({10, "X"});
+        ans.push_back({40, "XL"});
+        ans.push_back({50, "L"});
+        ans.push_back({90, "XC"});
+        ans.push_back({100, "C"});
+        ans.push_back({400, "CD"});
+        ans.push_back({500, "D"});
+        ans.push_back({900, "CM"});
+        ans.push_back({1000, "M"});
+        int j = ans.size() - 1;
+        while (1)
+        {
+            if (n >= ans[j].first)
+            {
+                return ans[j];
+            }
+            j--;
+        }
+        return {};
+    }
+  
+  public:
+    string convertToRoman(int n)
+    {
+        string roman;
+        pair<int, string> p;
+        while (n > 0)
+        {
+            p = func(n);
+            int a = p.first;
+            string s = p.second;
+            roman += s;
+            n = n - a;
+        }
+        return roman;
+    }
+};
