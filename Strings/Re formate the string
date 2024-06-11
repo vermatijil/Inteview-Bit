@@ -1,0 +1,32 @@
+Given a string S that consists of only alphanumeric characters and dashes. The string is separated into N + 1 groups by N dashes. Also given an integer K. 
+
+We want to reformat the string S, such that each group contains exactly K characters, except for the first group, which could be shorter than K but still must contain at least one character. Furthermore, there must be a dash inserted between two groups, and you should convert all lowercase letters to uppercase.
+
+Return the reformatted string.
+
+
+
+//this is an important question which was asked by the google and this is an important appraoch to
+
+class Solution
+{
+   public:
+    string ReFormatString(string S, int K)
+    {
+        string ans;
+        int count=0;
+        for(int i=S.size()-1;i>=0;i--)
+        {
+            if(S[i]=='-') continue;
+            if(count==K)
+            {
+                ans+='-';
+                count=0;
+            }
+            ans+=toupper(S[i]);
+            count++;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
